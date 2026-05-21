@@ -1,0 +1,40 @@
+================================================================================
+RAPPORT COMPLET : ESTIMATION DU ROI PAR MIX MÉDIA (RÉGRESSION)
+================================================================================
+
+1. PREPROCESSING
+--------------------------------------------------
+  Variables numériques normalisées (StandardScaler) : ['TV', 'Radio', 'Social Media']
+  Variable catégorielle encodée (LabelEncoder) : Performance
+    Mapping : {'Basse Performance': np.int64(0), 'Haute Performance': np.int64(1)}
+  Variable cible (à prédire) : ROI
+  Taille Train : 3613 | Taille Test : 904
+
+2. MÉTRIQUES DE PERFORMANCE
+--------------------------------------------------
+                  Modèle  R² Train  R² Test  RMSE (Test)  MAE (Test)  Écart Train/Test
+      Random Forest (ML)  0.989816 0.920356       7.6008      5.0236          0.069459
+       SVR Linéaire (ML)  0.673052 0.699526      14.7634      9.3004          0.026474
+ MLP Réseau Profond (DL)  0.943340 0.935968       6.8153      4.5120          0.007372
+Réseau Linéaire SGD (DL)  0.711030 0.722887      14.1779     10.1207          0.011857
+
+3. IMPORTANCE DES VARIABLES (Random Forest)
+--------------------------------------------------
+  Radio                    : 0.4780 (47.8%)
+  TV                       : 0.3963 (39.6%)
+  Social Media             : 0.1203 (12.0%)
+  Performance_encoded      : 0.0054 (0.5%)
+
+4. ÉCHANTILLON DE PRÉDICTIONS (10 premières lignes)
+--------------------------------------------------
+ ROI_Réel  Random Forest (ML)  SVR Linéaire (ML)  MLP Réseau Profond (DL)  Réseau Linéaire SGD (DL)
+   129.94              109.09             141.54                   115.52                    136.84
+   138.15              139.62             141.06                   139.09                    138.50
+   154.35              151.76             153.71                   154.63                    151.49
+   152.50              156.70             158.09                   157.67                    157.67
+   162.19              159.44             164.25                   161.21                    167.56
+   161.11              161.79             164.44                   161.40                    165.14
+   130.31              143.54             145.82                   136.61                    143.81
+   147.61              146.19             147.88                   146.17                    147.67
+   152.42              150.69             150.15                   152.64                    147.42
+   135.61              135.83             127.92                   136.83                    119.92
