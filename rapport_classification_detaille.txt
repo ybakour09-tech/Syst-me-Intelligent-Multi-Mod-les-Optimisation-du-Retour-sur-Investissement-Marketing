@@ -1,0 +1,44 @@
+================================================================================
+RAPPORTS DÉTAILLÉS DE CLASSIFICATION
+================================================================================
+
+--- Modèle : Régression Logistique ---
+                   precision    recall  f1-score   support
+
+Basse Performance       1.00      0.98      0.99       445
+Haute Performance       0.98      1.00      0.99       459
+
+         accuracy                           0.99       904
+        macro avg       0.99      0.99      0.99       904
+     weighted avg       0.99      0.99      0.99       904
+
+--- Modèle : Random Forest ---
+                   precision    recall  f1-score   support
+
+Basse Performance       0.99      0.98      0.99       445
+Haute Performance       0.98      0.99      0.99       459
+
+         accuracy                           0.99       904
+        macro avg       0.99      0.99      0.99       904
+     weighted avg       0.99      0.99      0.99       904
+
+--- Modèle : Support Vector Classifier (SVC) ---
+                   precision    recall  f1-score   support
+
+Basse Performance       0.99      0.98      0.99       445
+Haute Performance       0.98      0.99      0.99       459
+
+         accuracy                           0.99       904
+        macro avg       0.99      0.99      0.99       904
+     weighted avg       0.99      0.99      0.99       904
+
+--- Modèle : K-Nearest Neighbors (KNN) ---
+                   precision    recall  f1-score   support
+
+Basse Performance       0.99      0.98      0.99       445
+Haute Performance       0.98      0.99      0.99       459
+
+         accuracy                           0.99       904
+        macro avg       0.99      0.99      0.99       904
+     weighted avg       0.99      0.99      0.99       904
+
