@@ -1,0 +1,84 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+\title{
+    \vspace{-2cm}
+    \textbf{Projet Data Science Projet 3} \\
+    \Large Système intelligent multi-modèles : Optimisation du retour sur investissement marketing \\
+    \vspace{0.5cm}
+    \large Épreuve certifiante RNCP40875 Expert en ingénierie de données (Bloc de compétences à valider : Bloc 2)
+}
+
+\author{
+    \textbf{Réalisé par :} \\
+    Nawfel Chakib Younes \and Yacine Bakour \\
+    \vspace{1cm}
+    \\
+    \textbf{Encadré par :} \\
+    Madame Sarah Malaeb
+}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\newpage
+
+\tableofcontents
+\newpage
+
+\section{Introduction}
+Dans un environnement commercial hautement concurrentiel, l'allocation budgétaire optimale entre les différents canaux de marketing (TV, Radio, Réseaux Sociaux) est cruciale. L'objectif de ce projet est de développer un système d'aide à la décision baptisé \textbf{PRISMA}. Ce système exploite l'Intelligence Artificielle pour prédire le Chiffre d'Affaires (Ventes), estimer le Retour sur Investissement (ROI), identifier le niveau de performance attendu des campagnes et fournir une explicabilité mathématique détaillée grâce à la théorie des jeux.
+
+\section{Préparation et Exploration des Données}
+La première étape du pipeline de machine learning a consisté en l'ingestion et la normalisation des budgets historiques.
+\begin{itemize}
+    \item \textbf{Normalisation :} Les budgets alloués aux trois canaux publicitaires ont été normalisés à l'aide de l'algorithme \texttt{StandardScaler} de la bibliothèque \textbf{Scikit-Learn}. Cela garantit que les écarts d'échelle (par exemple, des investissements télévisuels systématiquement plus élevés que ceux des réseaux sociaux) ne biaisent pas les modèles d'apprentissage.
+    \item \textbf{Segmentation algorithmique (Clustering) :} Pour entraîner le modèle de classification, nous avons eu recours à l'algorithme \textbf{K-Means} appliqué à la variable cible (les Ventes). L'optimisation via le \textit{Score de Silhouette} a mis en évidence deux clusters naturels avec un seuil pivot situé autour de 195 K€, permettant d'étiqueter les données historiques en deux catégories : \textit{Basse Performance} et \textit{Haute Performance}.
+\end{itemize}
+
+\section{Architecture Multi-Modèles}
+Au lieu de s'appuyer sur un algorithme monolithique, PRISMA déploie une cascade de modèles experts pour répondre aux différents besoins métier.
+
+\subsection{Modèle de Classification (Random Forest)}
+Le premier modèle agit comme un filtre décisionnel rapide. Il s'agit d'un \textbf{Random Forest Classifier}. 
+En recevant les trois vecteurs de budget, il classifie la campagne à venir. Cet algorithme a été privilégié pour sa grande robustesse face à des données non-linéaires (par exemple, une absence totale de budget sur un canal spécifique).
+
+\subsection{Modèle de Régression (Perceptron Multicouche - MLP)}
+Pour obtenir des prédictions numériques précises, un modèle d'Apprentissage Profond a été développé : le \textbf{MLP Regressor}. 
+Ce réseau de neurones excelle dans la détection des interactions complexes et des synergies cachées entre la TV, la Radio et le Social Media, permettant de prédire le pourcentage exact de ROI attendu, et par extension, le volume total des Ventes.
+
+\section{Explicabilité et Analyse Combinatoire (SHAP)}
+L'un des défis majeurs de l'Apprentissage Profond (Deep Learning) réside dans son opacité ("Boîte Noire"). Pour que les décideurs puissent faire confiance à PRISMA, nous avons implémenté la bibliothèque \textbf{SHAP} (SHapley Additive exPlanations). 
+Basée sur la théorie mathématique des jeux, cette technologie attribue un score d'impact exact à chaque canal marketing. 
+\begin{itemize}
+    \item \textbf{Analyse Combinatoire :} SHAP permet de quantifier les effets de \textit{cannibalisation} ou de \textit{synergie} (par exemple, comprendre si l'ajout de budget Radio vient renforcer ou diminuer l'impact de la TV).
+\end{itemize}
+
+\section{Industrialisation et Déploiement (MLOps)}
+Pour rendre ces modèles accessibles, le projet a été intégralement encapsulé dans une architecture logicielle moderne.
+
+\subsection{Backend API (FastAPI)}
+Le serveur métier a été développé en Python 3 à l'aide du framework \textbf{FastAPI}, réputé pour sa performance asynchrone, servi par \textbf{Uvicorn}. 
+Les modèles entraînés ainsi que l'explicateur SHAP ont été sérialisés grâce à \textbf{joblib}. L'API expose des \textit{endpoints} REST (\texttt{/predict/roi}, \texttt{/predict/performance}, \texttt{/predict/shap\_impact}) avec une validation stricte des données entrantes via \textbf{Pydantic}.
+
+\subsection{Frontend Dashboard (Prisma)}
+Une interface Web haut de gamme a été développée pour les utilisateurs finaux sans nécessiter de frameworks lourds.
+\begin{itemize}
+    \item \textbf{Design} : HTML5, CSS3 avec esthétique \textit{Glassmorphism} (fond effet verre dépoli), typographie moderne (\textit{Outfit}).
+    \item \textbf{Interactivité} : \textbf{Vanilla JavaScript} (app.js) pour gérer les appels asynchrones (fetch) vers l'API lors de l'utilisation des curseurs budgétaires interactifs.
+    \item \textbf{Visualisation de Données} : Intégration de \textbf{Chart.js} pour fournir un graphique dynamique qui trace en temps réel l'évolution du ROI et des Ventes, permettant aux utilisateurs de comparer visuellement différents scénarios d'investissement.
+\end{itemize}
+
+\section{Conclusion}
+Ce projet a permis de transformer avec succès un ensemble de données brutes en un véritable \textit{Data Product} (produit de données) opérationnel. 
+L'alliance de l'intelligence artificielle (Machine Learning et Deep Learning) avec une interface utilisateur réactive (FastAPI + Dashboard interactif) offre un outil puissant, complet et transparent pour optimiser le retour sur investissement marketing. Ce travail valide de manière holistique les compétences de l'ingénierie de données.
+
+\end{document}
