@@ -3,7 +3,7 @@ import json
 import time
 
 def test_api():
-    base_url = "http://127.0.0.1:5000"
+    base_url = "http://127.0.0.1:8000"
     
     # Wait for the server to start (it should be fast)
     time.sleep(2)
